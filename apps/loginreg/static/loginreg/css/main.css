@@ -1,0 +1,21 @@
+
+
+body {
+   padding-top:20px;
+}
+
+/* Utility ----------------------- */
+.pt-10{ padding-top: 10px;}
+.pt-15{ padding-top: 15px;}
+.pt-20{ padding-top: 20px;}
+
+.mr-20{ margin-right: 20px;}
+
+
+/* ROUNDED CONTAINERS EFFECT ------ */
+/* apply to: body */
+.rounded-body{ padding: 20px 20px 20px 20px;}
+/* apply: <div class="col-sm-8 rounded"> */
+.rounded { border:1px solid black; border-radius:15px; margin-bottom: 20px; }
+.rounded-error { border:2px solid red; border-radius:15px; margin-bottom: 20px; }
+.rounded-clean { border-radius:15px; margin-bottom: 20px; }

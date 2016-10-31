@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang='en'>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+   <title></title>
+
+   {% load static %}
+   <link rel="stylesheet" href="{% static 'loginreg/css/main.css' %}" media="screen" title="no title"  charset="utf-8">
+   <link rel="stylesheet" href="{% static 'loginreg/css/bootstrap.min.css' %}" media="screen" title="no title"  charset="utf-8">
+
+   <!-- SCRIPTS    -->
+   <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class='container-fluid'>
+<!-- If there is a logged in user, show... -->
+{% if request.session.user_id %}
+<div class="row">
+ <div class="col-sm-2">
+ </div>
+ <div class="col-sm-6">
+   <h3>Welcome, {{ request.session.first_name }}!</h3>
+ </div>
+ <div class="col-sm-4">
+   <a href='{% url 'user:logout' %}'>Logout</a>
+ </div>
+</div>
+{% else %}
+<!-- There is not a logged in user -->
+<div class="row" style="pt-20">
+   <div class="col-sm-2"></div>
+    <div class="col-sm-8 rounded">
+      <h3>Registration</h3>
+      <form action='{% url 'user:register' %}' method='post'>
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="example-text-input" >First Name</label>
+            <input class="form-control" type="text" name='first_name' value="" id="example-text-input">
+        </div>
+        <div class="form-group">
+          <label for="example-text-input2">Last Name</label>
+            <input class="form-control" type="text" name='last_name' value="" id="example-text-input2">
+        </div>
+        <div class="form-group">
+          <label for="example-text-input3">Email</label>
+            <input class="form-control" type="text" name='email' value="" id="example-text-input3">
+        </div>
+        <div class="form-group">
+          <label for="example-text-input4">Password (8 character minimum)</label>
+            <input class="form-control" type="password" name='pw1' value="" id="example-text-input4">
+        </div>
+        <div class="form-group">
+          <label for="example-text-input5">Password Confirm</label>
+            <input class="form-control" type="password" name='pw2' value="" id="example-text-input5">
+        </div>
+        <div class="form-group row">
+         <label for="example-date-input12" class="col-xs-2 col-form-label">Hire Date</label>
+         <div class="col-xs-10">
+          <input class="form-control" name="hiredate" type="date" value="{% now "Y-m-d" %}" id="example-date-input12">
+         </div>
+       </div>
+        <div class="form-group">
+          <label class="sr-only" for="submit-reg">Register</label>
+         <button type='submit' value='Register' id='submit-reg'>Register</button><br/><br/>
+         </div>
+      </form>
+    </div>
+  </div>
+
+<!--Show All Errors -->
+{% if messages %}
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+     <div class="table-responsive">
+        <table class='table table-striped table-bordered table-hover'>
+            <h3>Errors</h3>
+         {% for message in messages %}
+          <tr class='danger'>
+               <td>{{ message }}</td>
+          </tr>
+            {% endfor %}
+        </table>
+     </div>
+   </div>
+</div>
+{% endif %}
+<!-- END Show All Errors -->
+
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8 rounded">
+  <h3>Login</h3>
+  <form action='{%url 'user:login' %}' method='post'>
+     {% csrf_token %}
+     <div class="form-group row">
+       <label for="example-text-input3" class="col-xs-2 col-form-label">Email</label>
+       <div class="col-xs-10">
+         <input class="form-control" type="text" name='email' value="" id="example-text-input3">
+       </div>
+     </div>
+     <div class="form-group row">
+       <label for="example-text-input4" class="col-xs-2 col-form-label">Password</label>
+       <div class="col-xs-10">
+         <input class="form-control" type="password" name='password' value="" id="example-text-input4">
+       </div>
+     </div>
+     <button type='submit' value='login'>Login</button><br/>
+  </form>
+  <br/>
+  </div>
+</div>
+
+<!-- closes if logged in user -->
+{% endif %}
+</div>
+</body>
+</html>
